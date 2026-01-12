@@ -1,0 +1,23 @@
+/* dark transparent background */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* popup box */
+.modal {
+  background: #fff;
+  padding: 20px;
+  width: 420px;
+  border-radius: 10px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+.modal h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+}
