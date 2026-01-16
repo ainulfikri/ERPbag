@@ -10,6 +10,8 @@ export type Material = {
   minStock: number;
 };
 
+export type NewMaterial = Omit<Material, "id">;
+
 /**
  * Get all materials
  */

@@ -1,7 +1,7 @@
 import { app, BrowserWindow } from "electron";
 import path from "path";
 import { ipcMain } from "electron";
-import { getAllMaterials } from "./backend/modules/inventory/inventory";
+import * as inventory from "./backend/modules/inventory/inventory";
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -16,7 +16,11 @@ function createWindow() {
 }
 
 ipcMain.handle("inventory:getAll", () => {
-  return getAllMaterials();
+  return inventory.getAllMaterials();
+});
+
+ipcMain.handle("inventory:add", (_event, material) => {
+  return inventory.addMaterial(material);
 });
 
 app.whenReady().then(createWindow);

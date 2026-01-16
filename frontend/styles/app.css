@@ -36,3 +36,28 @@ body {
   padding: 24px;
   background: #f8fafc;
 }
+
+.empty-state {
+  margin-top: 80px;
+  text-align: center;
+  color: #666;
+}
+
+.empty-state p {
+  font-size: 16px;
+  margin-bottom: 16px;
+}
+
+.empty-state button {
+  padding: 8px 16px;
+  border-radius: 6px;
+  border: none;
+  background-color: #2563eb; /* blue */
+  color: white;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.empty-state button:hover {
+  opacity: 0.9;
+}

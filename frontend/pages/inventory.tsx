@@ -5,17 +5,7 @@ import Layout from "../components/layout";
 import PageHeader from "../components/pageheader";
 import Table from "../components/table";
 import StatusBadge from "../components/statusbadge";
-
-/* ---------------- TYPES (frontend copy) ---------------- */
-// Frontend types do NOT import backend types
-type Material = {
-  id: number;
-  name: string;
-  category: "Fabric" | "Non-Fabric";
-  stock: number;
-  unit: string;
-  minStock: number;
-};
+import type { Material } from "../types/material";
 
 /* ---------------- HELPERS ---------------- */
 function getStockStatus(material: Material) {
@@ -50,26 +40,45 @@ export default function Inventory() {
       <PageHeader
         title="Inventory"
         action={
-          <button onClick={() => setShowAdd(true)}>
+          data.length > 0 ?(
+            <button onClick={() => setShowAdd(true)}>
             Add Material
-          </button>
+            </button>
+          ) : null
         }
       />
 
-      <Table
-        columns={[
-          { header: "Name", render: m => m.name },
-          { header: "Category", render: m => m.category },
-          { header: "Stock", render: m => m.stock },
-          { header: "Unit", render: m => m.unit },
-          { header: "Min Stock", render: m => m.minStock },
-          {
-            header: "Status",
-            render: m => <StatusBadge status={getStockStatus(m)} />,
-          },
-        ]}
-        data={data}
-      />
+      {/* EMPTY STATE */}
+      {data.length === 0 && (
+        <div className="empty-state">
+          <p>No materials yet.</p>
+          <button onClick={() => setShowAdd(true)}>
+            Add your first material
+          </button>
+        </div>
+      )}
+
+      {/*table for displaying materials*/}
+      {data.length > 0 && (
+        <Table
+          columns={[
+            { header: "Name", render: m => m.name },
+            { header: "Category", render: m => m.category },
+            { header: "Stock", render: m => m.stock },
+            { header: "Unit", render: m => m.unit },
+            { header: "Min Stock", render: m => m.minStock },
+            {
+              header: "Status",
+              render: m => (
+                <StatusBadge status={getStockStatus(m)} />
+              ),
+            },
+          ]}
+          data={data}
+        />
+      )}
+
+      {/*modal for adding material*/}
       {showAdd && (
         <div className="modal-backdrop">
           <div className="modal">
