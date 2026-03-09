@@ -8,3 +8,5 @@ export type Material = {
   unit: string;
   minStock: number;
 };
+
+export type NewMaterial = Omit<Material, "id">;

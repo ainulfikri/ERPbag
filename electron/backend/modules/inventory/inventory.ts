@@ -44,3 +44,31 @@ export function addMaterial(material: Omit<Material, "id">) {
 
   return result.lastInsertRowid;
 }
+
+/**
+ * Update an existing material
+ */
+export function updateMaterial(id: number, material: Omit<Material, "id">) {
+  const stmt = db.prepare(`
+    UPDATE materials 
+    SET name = ?, category = ?, stock = ?, unit = ?, minStock = ?
+    WHERE id = ?
+  `);
+
+  return stmt.run(
+    material.name,
+    material.category,
+    material.stock,
+    material.unit,
+    material.minStock,
+    id
+  );
+}
+
+/**
+ * Delete a material
+ */
+export function deleteMaterial(id: number) {
+  const stmt = db.prepare("DELETE FROM materials WHERE id = ?");
+  return stmt.run(id);
+}

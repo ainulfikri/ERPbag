@@ -1,7 +1,11 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "path";
-import { ipcMain } from "electron";
 import * as inventory from "./backend/modules/inventory/inventory";
+import * as tailor from "./backend/modules/tailor/tailor";
+import * as production from "./backend/modules/production/production";
+import * as product from "./backend/modules/product/product";
+import * as sales from "./backend/modules/sales/sales";
+import * as analytics from "./backend/modules/analytics/analytics";
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -12,15 +16,50 @@ function createWindow() {
     },
   });
 
-  win.loadURL("http://localhost:5173"); // Vite default
+  if (process.env.VITE_DEV_SERVER_URL) {
+    win.loadURL(process.env.VITE_DEV_SERVER_URL);
+  } else {
+    win.loadURL("http://localhost:5173"); // Fallback for local dev
+  }
 }
 
-ipcMain.handle("inventory:getAll", () => {
-  return inventory.getAllMaterials();
-});
+// IPC Registration
+function registerIpcHandlers() {
+  // Inventory
+  ipcMain.handle("inventory:getAll", () => inventory.getAllMaterials());
+  ipcMain.handle("inventory:add", (_event, material) => inventory.addMaterial(material));
+  ipcMain.handle("inventory:update", (_event, { id, data }) => inventory.updateMaterial(id, data));
+  ipcMain.handle("inventory:delete", (_event, id) => inventory.deleteMaterial(id));
 
-ipcMain.handle("inventory:add", (_event, material) => {
-  return inventory.addMaterial(material);
-});
+  // Tailors
+  ipcMain.handle("tailor:getAll", () => tailor.getAllTailors());
+  ipcMain.handle("tailor:add", (_event, { name, phone }) => tailor.addTailor(name, phone));
+  ipcMain.handle("tailor:toggleActive", (_event, { id, active }) => tailor.toggleTailorStatus(id, active));
 
-app.whenReady().then(createWindow);
+  // Production
+  ipcMain.handle("production:getAll", () => production.getAllBatches());
+  ipcMain.handle("production:create", (_event, data) => production.createBatch(data));
+  ipcMain.handle("production:updateStatus", (_event, { id, status }) => production.updateBatchStatus(id, status));
+
+  // Products
+  ipcMain.handle("product:getAll", () => product.getAll());
+  ipcMain.handle("product:add", (_event, data) => product.add(data));
+  ipcMain.handle("product:update", (_event, { id, data }) => product.update(id, data));
+  ipcMain.handle("product:remove", (_event, id) => product.remove(id));
+
+  // Sales
+  ipcMain.handle("sales:getAllOrders", () => sales.getAllOrders());
+  ipcMain.handle("sales:createOrder", (_event, data) => sales.createOrder(data));
+  ipcMain.handle("sales:getAllCustomers", () => sales.getAllCustomers());
+  ipcMain.handle("sales:addCustomer", (_event, data) => sales.addCustomer(data));
+  ipcMain.handle("sales:getOrderItems", (_event, orderId) => sales.getOrderItems(orderId));
+
+  // Analytics
+  ipcMain.handle("analytics:getStats", () => analytics.getSummaryStats());
+  ipcMain.handle("analytics:getLowStock", () => analytics.getLowStockMaterials());
+}
+
+app.whenReady().then(() => {
+  registerIpcHandlers();
+  createWindow();
+});

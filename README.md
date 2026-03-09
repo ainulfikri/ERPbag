@@ -19,37 +19,32 @@ To provide a simple, reliable desktop ERP system that replaces manual bookkeepin
 - **IPC bridge**: Secure preload API (`window.api`)
 
 ## Current Features
-- Inventory module (materials: fabric & non-fabric)
-- Tailor module (basic listing & status handling)
-- Shared layout with sidebar navigation
-- Frontend ↔ Backend communication via Electron IPC
-- Read-only data loading from SQLite
+- **Modern Interface**: App Switcher, Top Navigation, and standardized Sidebar.
+- **Inventory Module**: Full Material CRUD and stock tracking.
+- **Tailor Module**: Management of tailor profiles and active/inactive status.
+- **Product Catalog**: Management of finished bag types.
+- **Production Module**: Batch tracking linking Materials, Tailors, and Products.
+- **Sales & CRM**: Order creation with automatic warehouse stock deduction.
 
 ## In Progress
-- Inventory empty state
-- Add Material modal & form
-- Database schema finalization
-- UI polishing and component reuse
+- Functional Dashboard with real-time analytics.
+- Improved error handling and validation for all modules.
+- Refining the "Offline-First" sync logic.
 
 ## Planned Features
-- Material CRUD (add / edit / delete)
-- Production management
-- Dashboard & analytics
-- Transactions & sales
-- Basic accounting
+- Basic accounting (Profit/Loss tracking).
+- Advanced reports (Monthly sales, material usage).
+- Printable invoices and receipts (PDF generation).
+- Production build setup (Electron Forge/Builder).
 
 ## Project Status
-Early development, **architecture-first approach**.
+Active development, **feature-building phase**.
 
 Current focus:
-- Solid Electron + React + SQLite integration
-- Clear separation between frontend, backend, and database layers
-- Offline-first workflow
-
-## Notes
-ERPBag is designed to work entirely offline to support small workshops with limited or unreliable internet access.
+- **Data Insights**: Turning collected data into useful dashboard statistics.
+- **Polishing Navigation**: Ensuring smooth transitions between all apps.
 
 ## Next Steps
-- Finalize SQLite schema
-- Implement Material creation (Add Material)
-- Sync frontend form → backend → database
+- Implement Dashboard summary cards (Total Sales, Active Batches).
+- Add Low Stock visual alerts.
+- Setup Electron-builder for a downloadable `.exe`.
