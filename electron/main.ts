@@ -6,6 +6,7 @@ import * as production from "./backend/modules/production/production";
 import * as product from "./backend/modules/product/product";
 import * as sales from "./backend/modules/sales/sales";
 import * as analytics from "./backend/modules/analytics/analytics";
+import * as accounting from "./backend/modules/accounting/accounting";
 
 function createWindow() {
   const win = new BrowserWindow({
@@ -57,6 +58,16 @@ function registerIpcHandlers() {
   // Analytics
   ipcMain.handle("analytics:getStats", () => analytics.getSummaryStats());
   ipcMain.handle("analytics:getLowStock", () => analytics.getLowStockMaterials());
+  ipcMain.handle("analytics:getMonthlySales", (_event, { year }) => analytics.getMonthlySalesReport(year));
+  ipcMain.handle("analytics:getMaterialUsage", (_event, { startDate, endDate }) => analytics.getMaterialUsageReport(startDate, endDate));
+  ipcMain.handle("analytics:getRecentSales", () => analytics.getRecentSalesOrders(5));
+  ipcMain.handle("analytics:getRecentBatches", () => analytics.getRecentProductionBatches(5));
+
+  // Accounting
+  ipcMain.handle("accounting:getAllTransactions", () => accounting.getAllTransactions());
+  ipcMain.handle("accounting:addTransaction", (_event, data) => accounting.addTransaction(data));
+  ipcMain.handle("accounting:getAllCategories", () => accounting.getAllCategories());
+  ipcMain.handle("accounting:getProfitLoss", (_event, { startDate, endDate }) => accounting.getProfitLoss(startDate, endDate));
 }
 
 app.whenReady().then(() => {

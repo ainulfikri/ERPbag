@@ -43,5 +43,17 @@ contextBridge.exposeInMainWorld("api", {
   analytics: {
     getStats: () => ipcRenderer.invoke("analytics:getStats"),
     getLowStock: () => ipcRenderer.invoke("analytics:getLowStock"),
+    getMonthlySales: (year?: number) => ipcRenderer.invoke("analytics:getMonthlySales", { year }),
+    getMaterialUsage: (startDate?: string, endDate?: string) => ipcRenderer.invoke("analytics:getMaterialUsage", { startDate, endDate }),
+    getRecentSales: () => ipcRenderer.invoke("analytics:getRecentSales"),
+    getRecentBatches: () => ipcRenderer.invoke("analytics:getRecentBatches"),
+  },
+  accounting: {
+    getAllTransactions: () => ipcRenderer.invoke("accounting:getAllTransactions"),
+    addTransaction: (data: { categoryId: number; amount: number; description?: string; date?: string }) =>
+      ipcRenderer.invoke("accounting:addTransaction", data),
+    getAllCategories: () => ipcRenderer.invoke("accounting:getAllCategories"),
+    getProfitLoss: (startDate?: string, endDate?: string) =>
+      ipcRenderer.invoke("accounting:getProfitLoss", { startDate, endDate }),
   },
 });

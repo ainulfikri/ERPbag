@@ -4,7 +4,8 @@ import {
     ShoppingBag,
     Users,
     ClipboardList,
-    BadgeDollarSign
+    BadgeDollarSign,
+    BarChart2
 } from "lucide-react";
 
 type AppDef = {
@@ -25,6 +26,8 @@ const apps: AppDef[] = [
     { id: "tailor", label: "Tailors", icon: Users, color: "#E9AE1D" },
     { id: "production", label: "Production", icon: ClipboardList, color: "#21B799" },
     { id: "sales", label: "Sales & CRM", icon: BadgeDollarSign, color: "#455A64" },
+    { id: "accounting", label: "Accounting", icon: BadgeDollarSign, color: "#2E7D32" },
+    { id: "reports", label: "Reports", icon: BarChart2, color: "#6A1B9A" },
 ];
 
 export default function AppSwitcher({ onSelect }: Props) {

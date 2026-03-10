@@ -43,6 +43,16 @@ declare global {
           catalogSize: number;
         }>;
         getLowStock: () => Promise<any[]>;
+        getMonthlySales: (year?: number) => Promise<{ month: string; totalOrders: number; totalRevenue: number }[]>;
+        getMaterialUsage: (startDate?: string, endDate?: string) => Promise<{ materialName: string; unit: string; totalUsed: number; totalBatches: number }[]>;
+        getRecentSales: () => Promise<{ id: number; totalAmount: number; status: string; createdAt: string; customerName: string | null }[]>;
+        getRecentBatches: () => Promise<{ id: number; quantity: number; status: string; createdAt: string; productName: string; tailorName: string }[]>;
+      };
+      accounting: {
+        getAllTransactions: () => Promise<any[]>;
+        addTransaction: (data: { categoryId: number; amount: number; description?: string; date?: string }) => Promise<number>;
+        getAllCategories: () => Promise<any[]>;
+        getProfitLoss: (startDate?: string, endDate?: string) => Promise<{ income: number; expense: number; profit: number }>;
       };
     };
   }

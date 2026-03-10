@@ -100,6 +100,45 @@ export function initSchema(db: Database) {
     `).run();
     console.log("Database: order_items table ready.");
 
+    // 8. Accounting Categories
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS accounting_categories (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        type TEXT NOT NULL CHECK(type IN ('Income', 'Expense')),
+        isSystem INTEGER DEFAULT 0
+      )
+    `).run();
+
+    // Initialize default categories if they don't exist
+    const categoryCount = db.prepare("SELECT COUNT(*) as count FROM accounting_categories").get() as { count: number };
+    if (categoryCount.count === 0) {
+      const insertCat = db.prepare("INSERT INTO accounting_categories (name, type, isSystem) VALUES (?, ?, 1)");
+      insertCat.run('Sales', 'Income');
+      insertCat.run('Material Purchase', 'Expense');
+      insertCat.run('Labor Cost', 'Expense');
+      insertCat.run('Rent', 'Expense');
+      insertCat.run('Utilities', 'Expense');
+      insertCat.run('Other Income', 'Income');
+      insertCat.run('Other Expense', 'Expense');
+    }
+    console.log("Database: accounting_categories table ready.");
+
+    // 9. Accounting Transactions
+    db.prepare(`
+      CREATE TABLE IF NOT EXISTS accounting_transactions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        categoryId INTEGER NOT NULL,
+        amount INTEGER NOT NULL,
+        description TEXT,
+        date TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        referenceId INTEGER, -- Link to sales_order id if applicable
+        referenceType TEXT, -- 'Sales' or 'Manual'
+        FOREIGN KEY (categoryId) REFERENCES accounting_categories(id)
+      )
+    `).run();
+    console.log("Database: accounting_transactions table ready.");
+
     console.log("Database: Schema initialization complete.");
   } catch (err) {
     console.error("Database: Initialization ERROR!", err);

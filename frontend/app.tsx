@@ -6,6 +6,8 @@ import Tailor from "./pages/tailor";
 import Production from "./pages/production";
 import Products from "./pages/products";
 import Sales from "./pages/sales";
+import Accounting from "./pages/accounting";
+import Reports from "./pages/reports";
 import AppSwitcher from "./components/appswitcher";
 import "./styles/modal.css";
 
@@ -34,6 +36,10 @@ export default function App() {
         return <Production />;
       case "sales":
         return <Sales />;
+      case "accounting":
+        return <Accounting />;
+      case "reports":
+        return <Reports />;
       default:
         return <Dashboard />;
     }

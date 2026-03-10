@@ -19,32 +19,21 @@ To provide a simple, reliable desktop ERP system that replaces manual bookkeepin
 - **IPC bridge**: Secure preload API (`window.api`)
 
 ## Current Features
-- **Modern Interface**: App Switcher, Top Navigation, and standardized Sidebar.
-- **Inventory Module**: Full Material CRUD and stock tracking.
-- **Tailor Module**: Management of tailor profiles and active/inactive status.
-- **Product Catalog**: Management of finished bag types.
-- **Production Module**: Batch tracking linking Materials, Tailors, and Products.
-- **Sales & CRM**: Order creation with automatic warehouse stock deduction.
+- 🏠 **Premium Dashboard**: High-contrast analytics, live production feeds, and stock alerts.
+- 📦 **Inventory Management**: Visual stock tracking, material categorization, and low-stock warnings.
+- 🤝 **Production Partners**: Tailor management with performance status and automated profiles.
+- 🛍️ **Product Catalog**: Visual grid gallery for finished goods with real-time stock awareness.
+- ⚙️ **Production Engine**: Timeline-based batch tracking (Cutting → Sewing → QC).
+- 💰 **Sales & CRM**: Premium order tracking, customer profiles, and transaction management.
+- 📒 **Financial Ledger**: Accounting with profit/loss visualization and glassmorphism summaries.
+- 📊 **Business Intelligence**: Advanced monthly revenue and material consumption reports.
 
-## In Progress
-- Functional Dashboard with real-time analytics.
-- Improved error handling and validation for all modules.
-- Refining the "Offline-First" sync logic.
-
-## Planned Features
-- Basic accounting (Profit/Loss tracking).
-- Advanced reports (Monthly sales, material usage).
-- Printable invoices and receipts (PDF generation).
-- Production build setup (Electron Forge/Builder).
+## Future Roadmap
+- [ ] Setup Electron-builder for a downloadable `.exe` (Stable Release)
+- [ ] Export to PDF/Excel for all reports
+- [ ] Multi-currency support (IDR, USD, EUR)
+- [ ] Cloud synchronization (Optional)
+- [ ] Mobile companion app
 
 ## Project Status
-Active development, **feature-building phase**.
-
-Current focus:
-- **Data Insights**: Turning collected data into useful dashboard statistics.
-- **Polishing Navigation**: Ensuring smooth transitions between all apps.
-
-## Next Steps
-- Implement Dashboard summary cards (Total Sales, Active Batches).
-- Add Low Stock visual alerts.
-- Setup Electron-builder for a downloadable `.exe`.
+Active development, **UI Polishing & Stabilization phase**.
